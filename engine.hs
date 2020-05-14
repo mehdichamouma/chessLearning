@@ -44,3 +44,14 @@ display board = do
   mapM_ (\(n, x) -> putStrLn (
       (show (8 - n) ++ " " ++ (row_to_string x)) ))
       (zip [0..] board)
+
+move board (x1, y1) (x2, y2) =
+  let
+    p = (board!!x1)!!y1
+    (a, _:b) = splitAt y2 (board!!x2)
+    nRow = a ++ [p] ++ b
+    (c, _:d) = splitAt x2 board
+    temp_board = c ++ [nRow] ++ d
+    (e, _:f) = splitAt x1 temp_board
+    (g, _:h) = splitAt y1 (temp_board!!x1)
+  in e ++ [g ++ [Nothing] ++ h] ++ f
