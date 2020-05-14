@@ -11,32 +11,36 @@ initial_board =
   , [Just (White, Pawn), Just (White, Pawn), Just (White, Pawn), Just (White, Pawn), Just (White, Pawn), Just (White, Pawn), Just (White, Pawn), Just (White, Pawn)]
   , [Just (White, Tower), Just (White, Knight), Just (White, Bishop), Just (White, Queen), Just (White, King), Just (White, Bishop), Just (White, Knight), Just (White, Tower)] ]
 
-
-piecetype_to_string Pawn = "p"
-piecetype_to_string Tower = "T"
-piecetype_to_string Knight = "N"
-piecetype_to_string Bishop = "B"
-piecetype_to_string King = "K"
-piecetype_to_string Queen = "Q"
-
-piece_to_string Nothing = "  "
-piece_to_string (Just (Black, p)) = "b" ++ piecetype_to_string p
-piece_to_string (Just (White, p)) = "w" ++ piecetype_to_string p
+piece_to_string Nothing = " "
+piece_to_string (Just (Black, Pawn)) = "♟"
+piece_to_string (Just (Black, Tower)) = "♜"
+piece_to_string (Just (Black, Knight)) = "♞"
+piece_to_string (Just (Black, Bishop)) = "♝"
+piece_to_string (Just (Black, King)) = "♚"
+piece_to_string (Just (Black, Queen)) = "♛"
+piece_to_string (Just (White, Pawn)) = "♙"
+piece_to_string (Just (White, Tower)) = "♖"
+piece_to_string (Just (White, Knight)) = "♘"
+piece_to_string (Just (White, Bishop)) = "♗"
+piece_to_string (Just (White, King)) = "♔"
+piece_to_string (Just (White, Queen)) = "♕"
 
 row_to_string row = foldl (\str x -> str ++ " " ++ piece_to_string x ++ " |" ) "|" row
 
+-- Display Board Output:
+--
+--     A    B    C    D    E    F    G    H
+-- 8 | bT | bN | bB | bQ | bK | bB | bN | bT |
+-- 7 | bp | bp | bp | bp | bp | bp | bp | bp |
+-- 6 |    |    |    |    |    |    |    |    |
+-- 5 |    |    |    |    |    |    |    |    |
+-- 4 |    |    |    |    |    |    |    |    |
+-- 3 |    |    |    |    |    |    |    |    |
+-- 2 | wp | wp | wp | wp | wp | wp | wp | wp |
+-- 1 | wT | wN | wB | wQ | wK | wB | wN | wT |
+
 display board = do
-  putStrLn "    A    B    C    D    E    F    G    H   "
+  putStrLn "    a   b   c   d   e   f   g   h  "
   mapM_ (\(n, x) -> putStrLn (
       (show (8 - n) ++ " " ++ (row_to_string x)) ))
       (zip [0..] board)
-
-display_board_example = do
-  putStrLn "| wT | wN | wB | wQ | wK | wB | wN | wT |"
-  putStrLn "| wp | wp | wp | wp | wp | wp | wp | wp |"
-  putStrLn "|    |    |    |    |    |    |    |    |"
-  putStrLn "|    |    |    |    |    |    |    |    |"
-  putStrLn "|    |    |    |    |    |    |    |    |"
-  putStrLn "|    |    |    |    |    |    |    |    |"
-  putStrLn "| wT | wN | wB | wQ | wK | wB | wN | wT |"
-  putStrLn "| wp | wp | wp | wp | wp | wp | wp | wp |"
